@@ -27,10 +27,9 @@ RUN yum install -y bison byacc flex gsl-devel antlr
 
 # Update miniconda.
 RUN conda update --yes --all
-RUN conda config --add channels ioos --force
 
 # Add IOOS channel.
-RUN conda config --add channels ioos -f
+RUN conda config --add channels ioos --force
 
 # Clean it up.
 RUN conda clean -y -t
