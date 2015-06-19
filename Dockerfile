@@ -19,9 +19,6 @@ RUN yum install -y expat-devel
 # rasterio.
 RUN yum install -y compat-expat1.i686
 
-# ecmwf_grib.
-RUN yum install -y openjpeg-devel
-
 # nco.
 RUN yum install -y bison byacc flex gsl-devel antlr
 
