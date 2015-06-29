@@ -29,4 +29,4 @@ RUN conda update --yes --all
 RUN conda config --add channels ioos --force
 
 # Clean it up.
-RUN conda clean -y -t
+conda clean --yes --tarballs --lock --index-cache --packages --source-cache
