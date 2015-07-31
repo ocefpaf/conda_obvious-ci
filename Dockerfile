@@ -1,32 +1,24 @@
-FROM centos:5
+FROM centos:6
 
 MAINTAINER Filipe Fernandes <ocefpaf@gmail.com>
 
 RUN yum -y update && yum clean all
 
-# git.
-RUN yum install -y wget bzip2
-RUN wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm  && \
-    rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt && \
-    rpm -K rpmforge-release-0.5.3-1.el5.rf.i386.rpm && \
-    rpm -i rpmforge-release-0.5.3-1.el5.rf.i386.rpm
-RUN yum install -y git
+# Some build tools.
+RUN yum install -y tar bzip2 patch file make gcc-c++ wget git libtool texinfo
 
 # Install conda and obvious-ci.
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh
 
 RUN wget http://bit.ly/miniconda -O miniconda.sh
-RUN bash miniconda.sh -b -p -b -p /opt/conda && rm miniconda.sh
+RUN bash miniconda.sh -b -p /opt/conda && rm miniconda.sh
 RUN /opt/conda/bin/conda update --yes --all && \
     /opt/conda/bin/conda config --add channels ioos --force  && \
     /opt/conda/bin/conda install --yes obvious-ci \
                                        conda-build \
-                                       conda-server \
+                                       anaconda-client \
                                        jinja2 \
                                        setuptools
-
-# Patch.
-RUN yum install -y patch file
 
 # Qt, matplotlib, and vispy.
 RUN yum install -y libXext libSM libXrender fontconfig mesa-libGL
