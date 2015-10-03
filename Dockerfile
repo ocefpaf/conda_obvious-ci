@@ -28,3 +28,4 @@ RUN yum install -y expat-devel
 RUN yum install -y bison byacc flex antlr
 
 ENV PATH /opt/conda/bin:$PATH
+ENV LANG C.UTF-8
